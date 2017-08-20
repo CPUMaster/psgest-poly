@@ -1,0 +1,49 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<!--
+`<Name>` is Description
+
+@element Name
+-->
+<dom-module id="ps-articles">
+    <template>
+    <style>
+      :host {
+        display: block
+      }
+    </style>
+
+    
+
+  </template>
+
+    <script>
+        class PsArticles extends Polymer.Element {
+
+            static get is() {
+                return 'ps-articles';
+            }
+
+            static get properties() {
+                return {
+
+                };
+            }
+
+            constructor() {
+                super();
+            }
+
+            ready() {
+                super.ready();
+
+                Polymer.RenderStatus.afterNextRender(this, function() {
+
+                });
+            }
+
+        }
+
+        window.customElements.define(PsArticles.is, PsArticles);
+    </script>
+</dom-module>

@@ -25,15 +25,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="ps-icons.html">
 
-<link rel="lazy-import" href="ps-view1.html">
+<link rel="lazy-import" href="ps-home.html">
+<link rel="lazy-import" href="ps-articles.html">
 <link rel="lazy-import" href="ps-view404.html">
 
 <dom-module id="ps-app">
     <template>
     <style>
        :host {
-        --app-primary-color: #ffd600;
-        --app-secondary-color: black;
+        --app-primary-color: var(--paper-amber-500);
+        --app-secondary-color: var(--paper-amber-900);
 
         display: block;
       }
@@ -54,7 +55,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
       }
       #mainToolbar {
-        height: 50vh;
+        /* height: 100px; */
       }
 
       app-drawer-layout:not([narrow]) [drawer-toggle] {
@@ -80,11 +81,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         text-decoration: none;
         color: var(--app-secondary-color);
         line-height: 40px;
+        background-color: var(--paper-amber-100)
       }
 
       .drawer-list a.iron-selected {
         color: black;
         font-weight: bold;
+        background-color: var(--paper-amber-200)
       }
     </style>
 
@@ -98,10 +101,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <template is="dom-if" if="[[smallScreen]]">
         <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="view1" href="[[rootPath]]view1">View One</a>
-
             <template is="dom-repeat" items="[[sections]]" as="section" initial-count="1">
-              <a name="section" href="[[rootPath]][[section]]" class$="[[_getSectionClass(index, selectedTab)]]">[[section]]</a>
+              <a name="section" href="[[rootPath]][[section]]" class$="[[]]">[[section]]</a>
             </template>
     </iron-selector>
     </template>
@@ -122,8 +123,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </a>
                 </div>
             </app-toolbar>
-            <template is="dom-if" if="[[_shouldShowTabs(onDetailPage, smallScreen)]]">
-            <paper-tabs selected="[[selectedTab]]" scrollable sticky$="[[_shouldShowTabs(onDetailPage, smallScreen)]]">
+            <template is="dom-if" if="[[!smallScreen]]">
+            <paper-tabs selected="[[selectedTab]]" scrollable sticky$="[[smallScreen]]">
               <template is="dom-repeat" items="[[sections]]" as="section">
                 <paper-tab>
                   <a href="[[section]]">[[section]]</a>
@@ -132,9 +133,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </paper-tabs>
             </template>
         </app-header>
-
         <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
-            <ps-view1 name="view1"></ps-view1>
+            <ps-home name="home"></ps-home>
+            <ps-articles name="articles"></ps-articles>
             <ps-view404 name="view404"></ps-view404>
         </iron-pages>
     </app-header-layout>
@@ -158,8 +159,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         type: Array,
                         value: function() {
                             return [
-                                'Home',
-                                'Articles'
+                                'home',
+                                'articles'
                             ];
                         }
                     },
@@ -183,7 +184,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             _routePageChanged(page) {
                 // If no page was found in the route data, page will be an empty string.
                 // Deault to 'view1' in that case.
-                this.page = page || 'view1';
+                this.page = page || 'view404';
 
                 // Close a non-persistent drawer when the page & route are changed.
                 if (!this.$.drawer.persistent) {

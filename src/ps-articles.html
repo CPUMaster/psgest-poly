@@ -1,4 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/promise-polyfill/promise-polyfill-lite.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-list/iron-list.html">
 
 <!--
 `<Name>` is Description
@@ -8,14 +11,20 @@
 <dom-module id="ps-articles">
     <template>
     <style>
-      :host {
+       :host {
         display: block
       }
     </style>
+    <iron-ajax auto url="http://localhost:3000/articles" params='{}' last-response="{{articles}}"></iron-ajax>
+    <iron-list items="[[articles]]" as="article">
+      <template>
+        <div>
+          Name: [[article.title]]
+        </div>
+      </template>
+    </iron-list>
 
-    
-
-  </template>
+    </template>
 
     <script>
         class PsArticles extends Polymer.Element {
@@ -26,7 +35,7 @@
 
             static get properties() {
                 return {
-
+                    articles: []
                 };
             }
 

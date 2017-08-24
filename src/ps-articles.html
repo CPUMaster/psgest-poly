@@ -2,6 +2,8 @@
 <link rel="import" href="../bower_components/promise-polyfill/promise-polyfill-lite.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 
 <!--
 `<Name>` is Description
@@ -14,13 +16,27 @@
        :host {
         display: block
       }
+      iron-list{
+        display: flex;
+        flex-wrap: wrap;
+      }
+      paper-card{
+        max-width: 300px;
+      }
     </style>
     <iron-ajax auto url="http://localhost:3000/articles" params='{}' last-response="{{articles}}"></iron-ajax>
     <iron-list items="[[articles]]" as="article">
       <template>
-        <div>
+        <!-- <div>
           Name: [[article.title]]
+        </div> -->
+
+        <paper-card heading="[[article.title]]" image="[[article.image]]" alt="[[article.title]]">
+        <div class="card-content">
+        [[article.description]]
         </div>
+        <div class="card-actions"></div>
+        </paper-card>
       </template>
     </iron-list>
 

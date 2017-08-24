@@ -66,6 +66,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: #333;
         background-color: var(--app-primary-color);
       }
+      app-header-layout {
+height: 100vh;
+      }
 
       app-header paper-icon-button {
         --paper-icon-button-ink-color: white;
@@ -133,7 +136,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </paper-tabs>
             </template>
         </app-header>
-        <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
+        <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="home" role="main">
             <ps-home name="home"></ps-home>
             <ps-articles name="articles"></ps-articles>
             <ps-view404 name="view404"></ps-view404>

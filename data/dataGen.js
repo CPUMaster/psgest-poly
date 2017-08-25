@@ -16,7 +16,7 @@ var Obj = {
     'articles': []
 }
 var articles = []
-var len = 1000
+var len = 100
 
 while (len--) {
     var fakeJSON = JsonFaker.process(objectTemplate) // returns object

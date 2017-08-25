@@ -30,7 +30,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="lazy-import" href="ps-view404.html">
 
 <dom-module id="ps-app">
-    <template>
+  <template>
     <style>
        :host {
         --app-primary-color: var(--paper-amber-500);
@@ -38,22 +38,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         display: block;
       }
-            app-header {
+
+      app-header {
         background-color: rgba(255, 255, 255, 0.95);
         --app-header-shadow: {
           box-shadow: inset 0px 5px 6px -3px rgba(0, 0, 0, 0.2);
           height: 10px;
           bottom: -10px;
-        };
+        }
+        ;
       }
+
       app-header:not([shadow]) {
         border-bottom: 1px solid #ddd;
       }
+
       app-drawer {
         --app-drawer-content-container: {
           background-color: #f3f3f3;
-        };
+        }
+        ;
       }
+
       #mainToolbar {
         /* height: 100px; */
       }
@@ -66,8 +72,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: #333;
         background-color: var(--app-primary-color);
       }
+
       app-header-layout {
-height: 100vh;
+        height: 100vh;
+        width: 100vw;
       }
 
       app-header paper-icon-button {
@@ -102,31 +110,31 @@ height: 100vh;
       <!-- Drawer content -->
       <app-drawer id="drawer" slot="drawer" swipe-open="[[smallScreen]]">
         <template is="dom-if" if="[[smallScreen]]">
-        <app-toolbar>Menu</app-toolbar>
-        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+          <app-toolbar>Menu</app-toolbar>
+          <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
             <template is="dom-repeat" items="[[sections]]" as="section" initial-count="1">
               <a name="section" href="[[rootPath]][[section]]" class$="[[]]">[[section]]</a>
             </template>
-    </iron-selector>
-    </template>
-    </app-drawer>
-    <!-- Main content -->
-    <app-header-layout has-scrolling-region>
+          </iron-selector>
+        </template>
+      </app-drawer>
+      <!-- Main content -->
+      <app-header-layout has-scrolling-region>
 
         <app-header slot="header" slot="header" effects="waterfall" fixed="[[smallScreen]]" condenses="[[!smallScreen]]" reveals="[[!smallScreen]]">
-            <app-toolbar id="mainToolbar">
-                <template is="dom-if" if="[[smallScreen]]">
-                  <paper-icon-button icon="ps-icons:menu" drawer-toggle alt="Menu toggle"></paper-icon-button>
-                </template>
-                <div main-title>Talsint App</div>
-                <div class="navItem leftItem">
-                    <paper-icon-button icon="menu" drawer-toggle alt="Toogle navigation menu"></paper-icon-button>
-                    <a href="#[[sectionData.section]]" tabindex="-1">
-                        <paper-icon-button icon="arrow-back" alt="Back to the home"></paper-icon-button>
-                    </a>
-                </div>
-            </app-toolbar>
-            <template is="dom-if" if="[[!smallScreen]]">
+          <app-toolbar id="mainToolbar">
+            <template is="dom-if" if="[[smallScreen]]">
+              <paper-icon-button icon="ps-icons:menu" drawer-toggle alt="Menu toggle"></paper-icon-button>
+            </template>
+            <div main-title>Talsint App</div>
+            <div class="navItem leftItem">
+              <paper-icon-button icon="menu" drawer-toggle alt="Toogle navigation menu"></paper-icon-button>
+              <a href="#[[sectionData.section]]" tabindex="-1">
+                <paper-icon-button icon="arrow-back" alt="Back to the home"></paper-icon-button>
+              </a>
+            </div>
+          </app-toolbar>
+          <template is="dom-if" if="[[!smallScreen]]">
             <paper-tabs selected="[[selectedTab]]" scrollable sticky$="[[smallScreen]]">
               <template is="dom-repeat" items="[[sections]]" as="section">
                 <paper-tab>
@@ -134,85 +142,85 @@ height: 100vh;
                 </paper-tab>
               </template>
             </paper-tabs>
-            </template>
+          </template>
         </app-header>
         <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="home" role="main">
-            <ps-home name="home"></ps-home>
-            <ps-articles name="articles"></ps-articles>
-            <ps-view404 name="view404"></ps-view404>
+          <ps-home name="home"></ps-home>
+          <ps-articles name="articles"></ps-articles>
+          <ps-view404 name="view404"></ps-view404>
         </iron-pages>
-    </app-header-layout>
+      </app-header-layout>
     </app-drawer-layout>
-    </template>
+  </template>
 
-    <script>
-        class PsApp extends Polymer.Element {
-            static get is() {
-                return 'ps-app';
-            }
+  <script>
+    class PsApp extends Polymer.Element {
+      static get is() {
+        return 'ps-app';
+      }
 
-            static get properties() {
-                return {
-                    page: {
-                        type: String,
-                        reflectToAttribute: true,
-                        observer: '_pageChanged',
-                    },
-                    sections: {
-                        type: Array,
-                        value: function() {
-                            return [
-                                'home',
-                                'articles'
-                            ];
-                        }
-                    },
-                    sectionData: Object,
-                    routeData: Object,
-                    subroute: String,
-                    // This shouldn't be neccessary, but the Analyzer isn't picking up
-                    // Polymer.Element#rootPath
-                    rootPath: String,
-                    onDetailPage: Boolean,
-                    smallScreen: Boolean
-                };
+      static get properties() {
+        return {
+          page: {
+            type: String,
+            reflectToAttribute: true,
+            observer: '_pageChanged',
+          },
+          sections: {
+            type: Array,
+            value: function () {
+              return [
+                'home',
+                'articles'
+              ];
             }
+          },
+          sectionData: Object,
+          routeData: Object,
+          subroute: String,
+          // This shouldn't be neccessary, but the Analyzer isn't picking up
+          // Polymer.Element#rootPath
+          rootPath: String,
+          onDetailPage: Boolean,
+          smallScreen: Boolean
+        };
+      }
 
-            static get observers() {
-                return [
-                    '_routePageChanged(routeData.page)',
-                ];
-            }
+      static get observers() {
+        return [
+          '_routePageChanged(routeData.page)',
+        ];
+      }
 
-            _routePageChanged(page) {
-                // If no page was found in the route data, page will be an empty string.
-                // Deault to 'view1' in that case.
-                this.page = page || 'view404';
+      _routePageChanged(page) {
+        // If no page was found in the route data, page will be an empty string.
+        // Deault to 'view1' in that case.
+        this.page = page || 'view404';
 
-                // Close a non-persistent drawer when the page & route are changed.
-                if (!this.$.drawer.persistent) {
-                    this.$.drawer.close();
-                }
-            }
-
-            _pageChanged(page) {
-                // Load page import on demand. Show 404 page if fails
-                var resolvedPageUrl = this.resolveUrl('ps-' + page + '.html');
-                Polymer.importHref(
-                    resolvedPageUrl,
-                    null,
-                    this._showPage404.bind(this),
-                    true);
-            }
-
-            _showPage404() {
-                this.page = 'view404';
-            }
-            _shouldShowTabs(onDetailPage, smallScreen) {
-                return !onDetailPage && !smallScreen;
-            }
+        // Close a non-persistent drawer when the page & route are changed.
+        if (!this.$.drawer.persistent) {
+          this.$.drawer.close();
         }
+      }
 
-        window.customElements.define(PsApp.is, PsApp);
-    </script>
+      _pageChanged(page) {
+        // Load page import on demand. Show 404 page if fails
+        var resolvedPageUrl = this.resolveUrl('ps-' + page + '.html');
+        Polymer.importHref(
+          resolvedPageUrl,
+          null,
+          this._showPage404.bind(this),
+          true);
+      }
+
+      _showPage404() {
+        this.page = 'view404';
+      }
+      _shouldShowTabs(onDetailPage, smallScreen) {
+        return !onDetailPage && !smallScreen;
+      }
+    }
+
+    window.customElements.define(PsApp.is, PsApp);
+  </script>
 </dom-module>

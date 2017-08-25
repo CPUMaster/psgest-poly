@@ -12,33 +12,34 @@
 -->
 <dom-module id="ps-articles">
     <template>
-    <style>
-       :host {
-        display: block
-      }
-      iron-list{
-        display: flex;
-        flex-wrap: wrap;
-      }
-      paper-card{
-        max-width: 300px;
-      }
-    </style>
-    <iron-ajax auto url="http://localhost:3000/articles" params='{}' last-response="{{articles}}"></iron-ajax>
-    <iron-list items="[[articles]]" as="article">
-      <template>
-        <!-- <div>
-          Name: [[article.title]]
-        </div> -->
+        <style>
+             :host {
+                display: block
+            }
+            .card {
+                height: 250px;
+                width: 300px;
+                padding: 10px;
+            }
 
-        <paper-card heading="[[article.title]]" image="[[article.image]]" alt="[[article.title]]">
-        <div class="card-content">
-        [[article.description]]
-        </div>
-        <div class="card-actions"></div>
-        </paper-card>
-      </template>
-    </iron-list>
+        </style>
+        <iron-ajax auto url="http://localhost:3000/articles" params='{}' last-response="{{articles}}"></iron-ajax>
+        <iron-list items="[[articles]]" as="article"  class="list" grid initial-count="4">
+            <template>
+                <!-- <div>
+                    Name: [[article.title]]
+                </div> -->
+                <div class="card" >
+                    <paper-card heading="[[article.title]]" image="[[article.image]]" alt="[[article.title]]">
+                        <div class="card-content">
+                        </div>
+                        <div class="card-actions">
+                            [[article.description]]
+                        </div>
+                    </paper-card>
+                </div>
+            </template>
+        </iron-list>
 
     </template>
 
@@ -62,7 +63,7 @@
             ready() {
                 super.ready();
 
-                Polymer.RenderStatus.afterNextRender(this, function() {
+                Polymer.RenderStatus.afterNextRender(this, function () {
 
                 });
             }

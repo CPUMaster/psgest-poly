@@ -21,7 +21,8 @@
     "promise-polyfill": "PolymerLabs/promise-polyfill#2",
     "paper-card": "PolymerElements/paper-card#^2.0.0",
     "paper-button": "PolymerElements/paper-button#^2.0.0",
-    "polymer-expressions": "Polymer/polymer-expressions#^0.5.6"
+    "polymer-expressions": "Polymer/polymer-expressions#^0.5.6",
+    "iron-scroll-threshold": "PolymerElements/iron-scroll-threshold#^2.0.0"
   },
   "resolutions": {
     "polymer": "^2.0.0"

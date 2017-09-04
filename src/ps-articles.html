@@ -44,7 +44,7 @@
                     articles: [],
                     limit: {
                         type: String,
-                        value: ''
+                        computed: 'loadMoreData()'
                     }
                 };
             }
@@ -53,9 +53,7 @@
                 super();
             }
             created() {
-                _limitArticlesList(limit) {
-                    return 'http://localhost:3000/articles?_limit=' + limit;
-                }
+
             }
 
             ready() {
@@ -71,13 +69,16 @@
                 // import request from 'async-request'
                 // let response
                 let locaLimit = 4
-                this.limit = _limitArticlesList(locaLimit);
+                this.limit = limitArticlesList(locaLimit);
 
-                console.log(limit)
+                // console.log(limit)
 
                 // asyncStuff(function done() {
                 //     ironScrollTheshold.clearTriggers();
                 // });
+            }
+            limitArticlesList(limit) {
+                return 'http://localhost:3000/articles?_limit=' + limit
             }
 
 
